@@ -1,0 +1,19 @@
+version: 2.1
+orbs:
+  cli: circleci/circleci-cli@0.1.9
+
+jobs:
+  server-orb-import:
+    executor: cli/default
+    steps:
+      - checkout
+      - run:
+          name: Import all certified orbs into Server V3 instance
+          command: |
+            bash import-orbs.sh
+
+
+workflows:
+  main:
+    jobs:
+      - server-orb-import
