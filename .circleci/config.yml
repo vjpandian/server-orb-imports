@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Import all certified orbs into Server V3 instance
+          name: Import all certified orbs into Server V4 instance
           command: |
             bash import-orbs.sh
 
@@ -16,4 +16,5 @@ jobs:
 workflows:
   main:
     jobs:
-      - server-orb-import
+      - server-orb-import:
+           context: org-global
