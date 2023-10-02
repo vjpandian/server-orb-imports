@@ -1,4 +1,4 @@
-token=$CIRCLE_TOKEN
+token=$CUSTENG4_API_TOKEN
 
 declare -a arr=("circleci/android"
 "circleci/circleci-cli@0.1.2"
