@@ -1,5 +1,4 @@
-host=$V3_SERVER_HOST
-token=$PERSONAL_API_TOKEN
+token=$CIRCLE_TOKEN
 
 declare -a arr=("circleci/android"
 "circleci/circleci-cli@0.1.2"
@@ -95,5 +94,5 @@ declare -a arr=("circleci/android"
 for i in "${arr[@]}"
 do
    #echo "$i"
-   circleci admin import-orb "$i" --host $host --token $token --no-prompt
+   circleci admin import-orb "$i" --host https://custeng-server-4.eks-dev.sphereci.com --token $token --no-prompt
 done
