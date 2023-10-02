@@ -2,6 +2,7 @@ token=$CUSTENG4_API_TOKEN
 
 declare -a arr=("circleci/android"
 "circleci/circleci-cli@0.1.2"
+"circleci/node@4.7"
 "circleci/salesforce-sfdx@2.0.0"
 "circleci/azure-cli@1.1.0"
 "circleci/docker@0.5.13"
