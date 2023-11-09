@@ -1,4 +1,4 @@
-token=$CUSTENG4_API_TOKEN
+token=$SERVER_API_TOKEN
 
 declare -a arr=("circleci/android"
 "circleci/circleci-cli@0.1.2"
@@ -82,7 +82,7 @@ declare -a arr=("circleci/android"
 "circleci/salesforce-sfdx"
 "circleci/serverless-framework"
 "circleci/shellcheck"
-"circleci/slack"
+"circleci/slack@4.5.2"
 "circleci/spinnaker"
 "circleci/sumologic"
 "circleci/terraform"
@@ -95,5 +95,5 @@ declare -a arr=("circleci/android"
 for i in "${arr[@]}"
 do
    #echo "$i"
-   circleci admin import-orb "$i" --host https://custeng-server-4.eks-dev.sphereci.com --token $token --no-prompt
+   circleci admin import-orb "$i" --host $CIRCLE_HOSTNAME --token $token --no-prompt
 done
