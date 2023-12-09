@@ -5,6 +5,7 @@ orbs:
 jobs:
   server-orb-import:
     executor: cli/default
+    resource_class: small
     steps:
       - checkout
       - run:
