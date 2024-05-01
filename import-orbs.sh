@@ -1,6 +1,7 @@
 token=$CIRCLE_TOKEN
 
 declare -a arr=("circleci/android"
+"circleci/circleci-cli@0.1.9"
 "circleci/circleci-cli@0.1.2"
 "circleci/node@4.7"
 "circleci/salesforce-sfdx@2.0.0"
