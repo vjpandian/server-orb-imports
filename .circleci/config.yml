@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - run: echo $CIRCLE_HOSTNAME
-      - run: circleci info org --host $CIRCLE_HOSTNAME --token $CIRCLE_TOKEN
+      - run: circleci info org --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN
       - run:
           name: Import all certified orbs into Server V4 instance
           command: |
@@ -25,5 +25,4 @@ jobs:
 workflows:
   main:
     jobs:
-      - import-orbs:
-           context: server4-fieldeng
+      - import-orbs
