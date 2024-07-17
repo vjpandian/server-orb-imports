@@ -10,7 +10,7 @@ jobs:
     docker:
       - image: circleci/circleci-cli:0.1.29658
     environment:
-      CIRCLE_HOSTNAME: << pipelines.parameters.circle-hostname >>
+      CIRCLE_HOSTNAME: << pipeline.parameters.circle-hostname >>
     resource_class: small
     steps:
       - checkout
