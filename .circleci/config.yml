@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   circle-hostname:
     type: string
-    default: "server4.fieldeng-sphereci.com"
+    default: "https://server4.fieldeng-sphereci.com"
 
 jobs:
   import-orbs:
