@@ -4,8 +4,7 @@ circleci/circleci-cli@0.1.2
 circleci/node@4.7
 circleci/salesforce-sfdx@2.0.0
 circleci/azure-cli@1.1.0
-circleci/docker@0.5.13
-circleci/build-tools@2.6.3
+circleci/docker@2.6.0
 circleci/circleci-cli@0.1.8
 circleci/os-detect@0.1
 circleci/os-detect@0.2
