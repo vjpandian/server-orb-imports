@@ -8,7 +8,7 @@ parameters:
 jobs:
   import-orbs:
     docker:
-      - image: circleci/circleci-cli:0.1.29658
+      - image: circleci/circleci-cli:0.1.30549
     environment:
       CIRCLE_HOSTNAME: << pipeline.parameters.circle-hostname >>
     resource_class: small
