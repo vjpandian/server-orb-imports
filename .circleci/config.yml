@@ -1,11 +1,16 @@
 version: 2.1
-#orbs:
-#  cli: circleci/circleci-cli@0.1.9
+
+parameters:
+  circle-hostname:
+    type: string
+    default: "https://server4.fieldeng-sphereci.com"
 
 jobs:
   server-orb-import:
     docker:
       - image: circleci/circleci-cli:0.1.29658
+    environment:
+      CIRCLE_HOSTNAME: << pipelines.parameters.circle-hostname >>
     resource_class: small
     steps:
       - checkout
@@ -19,4 +24,4 @@ workflows:
   main:
     jobs:
       - server-orb-import:
-           context: org-global
+           context: server4-fieldeng
