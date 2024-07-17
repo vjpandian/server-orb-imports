@@ -5,7 +5,8 @@ version: 2.1
 jobs:
   server-orb-import:
     docker:
-      - image: circleci/circleci-cli:0.1.29658
+      - image: circleci/circleci-cli:0.1.30549
+      #- image: circleci/circleci-cli:0.1.29658
     resource_class: small
     steps:
       - checkout
