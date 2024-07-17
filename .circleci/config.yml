@@ -14,7 +14,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
-      - run: circleci setup --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN --skip-update-check
+      - run: circleci setup --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN --skip-update-check --no-prompt
       - run: circleci info org --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN
       - run:
           name: Import all certified orbs into Server V4 instance
