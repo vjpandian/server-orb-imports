@@ -1,6 +1,9 @@
 version: 2.1
 
 parameters:
+  cli-version
+    type: string
+    default: "0.1.30549"
   circle-hostname:
     type: string
     default: "https://server4.fieldeng-sphereci.com"
@@ -8,18 +11,26 @@ parameters:
 jobs:
   import-orbs:
     docker:
-      - image: circleci/circleci-cli:0.1.30549
+      - image: circleci/circleci-cli:<< pipeline.parameters.cli-version >>
     environment:
       CIRCLE_HOSTNAME: << pipeline.parameters.circle-hostname >>
     resource_class: small
     steps:
       - checkout
-      - run: circleci setup --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN --skip-update-check --no-prompt
-      - run: circleci info org --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN
+      - run: 
+          name: Setup CircleCI CLI 
+          command: circleci setup --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN --skip-update-check --no-prompt
+      - run: 
+          name: Fetch info about orgs that the token has access to for reference
+          command: circleci info org --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN
       - run:
           name: Import all certified orbs into Server V4 instance
           command: |
-            bash import-orbs.sh
+               mapfile -t arr < orbs.txt
+               for i in "${arr[@]}"
+               do
+                   circleci admin import-orb "$i" --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN --no-prompt
+               done
 
 
 workflows:
