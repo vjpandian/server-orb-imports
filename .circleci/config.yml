@@ -3,7 +3,7 @@ version: 2.1
 parameters:
   circle-hostname:
     type: string
-    default: "https://server4.fieldeng-sphereci.com"
+    default: "server4.fieldeng-sphereci.com"
 
 jobs:
   import-orbs:
@@ -14,6 +14,7 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run: echo $CIRCLE_HOSTNAME
       - run: circleci info org --host $CIRCLE_HOSTNAME --token $CIRCLE_TOKEN
       - run:
           name: Import all certified orbs into Server V4 instance
