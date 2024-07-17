@@ -1,7 +1,7 @@
 version: 2.1
 
 parameters:
-  cli-version
+  cli-version:
     type: string
     default: "0.1.30549"
   circle-hostname:
