@@ -4,17 +4,16 @@ parameters:
   cli-version:
     type: string
     default: "0.1.30549"
-  circle-hostname:
-    type: string
-    default: "https://server4.fieldeng-sphereci.com"
-
 jobs:
   import-orbs:
     docker:
       - image: circleci/circleci-cli:<< pipeline.parameters.cli-version >>
     environment:
-      CIRCLE_HOSTNAME: << pipeline.parameters.circle-hostname >>
+      CIRCLE_HOSTNAME: << parameters.circle-hostname >>
     resource_class: small
+    parameters:
+      circle-hostname:
+        type: string
     steps:
       - checkout
       - run: 
@@ -34,6 +33,13 @@ jobs:
 
 
 workflows:
-  main:
+  stage:
     jobs:
-      - import-orbs
+      - import-orbs:
+           circle-hostname: "https://staging.fieldeng-sphereci.com"
+           name: "staging-env-import"
+  #prod:
+  #  jobs:
+  #    - import-orbs:
+  #          circle-hostname: "https://prod.fieldeng-sphereci.com"
+  #          name: "prod-env-import"
