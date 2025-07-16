@@ -4,6 +4,22 @@ parameters:
   cli-version:
     type: string
     default: "0.1.30549"
+
+commands:
+  staging-setup:
+    steps:
+      - run: 
+          name: Setup CircleCI CLI and import orbs
+          command: |
+            echo $CIRCLE_HOSTNAME
+            circleci setup --host <<parameters.circle-hostname>> --token $STAGING_API_TOKEN --skip-update-check --no-prompt
+            circleci info org --host <<parameters.circle-hostname>> --token $STAGING_API_TOKEN
+            mapfile -t arr < orbs.txt
+            for i in "${arr[@]}"
+              do
+                 circleci admin import-orb "$i" --host <<parameters.circle-hostname>> --token $STAGING_API_TOKEN --no-prompt
+            done
+    
 jobs:
   import-orbs:
     docker:
@@ -16,20 +32,7 @@ jobs:
         type: string
     steps:
       - checkout
-      - run: 
-          name: Setup CircleCI CLI 
-          command: circleci setup --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN --skip-update-check --no-prompt
-      - run: 
-          name: Fetch info about orgs that the token has access to for reference
-          command: circleci info org --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN
-      - run:
-          name: Import all certified orbs into Server V4 instance
-          command: |
-               mapfile -t arr < orbs.txt
-               for i in "${arr[@]}"
-               do
-                   circleci admin import-orb "$i" --host $CIRCLE_HOSTNAME --token $SERVER4_FIELDENG_TOKEN --no-prompt
-               done
+      - staging-setup
 
 
 workflows:
