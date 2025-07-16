@@ -3,3 +3,4 @@ circleci/aws-cli@4.1.3
 circleci/aws-s3@4.0.0
 circleci/node@5.1.0
 circleci/gcp-cli@3.2.2
+circleci/path-filtering@1.1.0
