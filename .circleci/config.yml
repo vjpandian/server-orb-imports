@@ -9,7 +9,7 @@ parameters:
     default: "https://staging.fieldeng-sphereci.com"
   prod-hostname:
     type: string
-    default: "https://staging.fieldeng-sphereci.com"
+    default: "https://prod.fieldeng-sphereci.com"
   update-prod:
     type: boolean
     default: false
