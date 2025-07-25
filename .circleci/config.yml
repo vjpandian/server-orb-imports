@@ -7,12 +7,6 @@ parameters:
   staging-hostname:
     type: string
     default: "https://staging.fieldeng-sphereci.com"
-  prod-hostname:
-    type: string
-    default: "https://prod.fieldeng-sphereci.com"
-  update-prod:
-    type: boolean
-    default: false
 
 commands:
   prod-setup:
@@ -71,11 +65,3 @@ workflows:
       - import-orbs:
            circle-hostname: << pipeline.parameters.staging-hostname >>
            name: "staging-env-import"
-  prod:
-    when:
-      and:
-        - equal: [true, <<pipeline.parameters.update-prod>>]
-    jobs:
-      - import-orbs:
-            circle-hostname: << pipeline.parameters.prod-hostname >>
-            name: "prod-env-import"
