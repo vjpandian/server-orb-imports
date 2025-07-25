@@ -7,3 +7,4 @@ circleci/node@5.0.0
 circleci/node@5.1.0
 circleci/gcp-cli@3.2.2
 circleci/path-filtering@1.1.0
+snyk/snyk@2.3.0
