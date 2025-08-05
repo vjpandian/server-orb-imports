@@ -72,4 +72,4 @@ workflows:
       - import-orbs:
            circle-hostname: << pipeline.parameters.staging-hostname >>
            name: "staging-env-import"
-           filters: pipeline.git.branch == "main"
+           filters: pipeline.git.branch == "import-all-versions"
