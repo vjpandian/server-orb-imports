@@ -8,24 +8,7 @@ parameters:
     type: string
     default: "https://staging.fieldeng-sphereci.com"
 
-commands:
-  prod-setup:
-    parameters:
-      circle-hostname:
-        type: string
-    steps:
-      - run: 
-          name: Setup CircleCI CLI and import orbs
-          command: |
-            echo $CIRCLE_HOSTNAME
-            circleci setup --host <<parameters.circle-hostname>> --token $PROD_API_TOKEN --skip-update-check --no-prompt
-            circleci info org --host <<parameters.circle-hostname>> --token $PROD_API_TOKEN
-            mapfile -t arr < orbs.txt
-            for i in "${arr[@]}"
-              do
-                 circleci admin import-orb "$i" --host <<parameters.circle-hostname>> --token $PROD_API_TOKEN --no-prompt
-            done
-            
+commands:            
   staging-setup:
     parameters:
       circle-hostname:
@@ -65,3 +48,4 @@ workflows:
       - import-orbs:
            circle-hostname: << pipeline.parameters.staging-hostname >>
            name: "staging-env-import"
+           filters: pipeline.git.branch == "main"
