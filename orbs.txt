@@ -2,5 +2,4 @@ circleci/continuation
 circleci/aws-cli
 circleci/aws-s3
 circleci/node
-circleci/gcp-cli
 circleci/path-filtering
