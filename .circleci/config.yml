@@ -33,6 +33,8 @@ commands:
           name: Import orbs
           command: |
               echo "$CIRCLE_HOSTNAME"
+              declare -A ignore_map
+              ignore_map["circleci/aws-s3"]="3.1.0"
               
               mapfile -t orbs < orbs.txt
               
@@ -56,6 +58,13 @@ commands:
               
                 for tag in $tags; do
                   version="${tag#v}"
+                  skip_versions=${ignore_map["$orb_namespace_name"]:-}
+                  for ignored in $skip_versions; do
+                      if [[ "$version" == "$ignored" ]]; then
+                         echo "Skipping ignored version $version of $orb_namespace_name"
+                         continue 2
+                      fi
+                  done
                   orb_version="${orb_namespace_name}@${version}"
               
                   echo "Importing $orb_version ..."
