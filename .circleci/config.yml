@@ -15,7 +15,7 @@ executors:
     environment:
       CIRCLE_HOSTNAME: << pipeline.parameters.staging-hostname >>
       GITHUB_API_HOSTNAME: "https://api.github.com"
-    resource_class: small
+    resource_class: xlarge
 
 commands:            
   staging-setup:
