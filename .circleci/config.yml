@@ -25,10 +25,10 @@ commands:
     steps:
       - run:
           name: Setup CircleCI Orb
-          command: circleci setup --host "$HOST" --token "$STAGING_API_TOKEN" --skip-update-check --no-prompt
+          command: circleci setup --host "$CIRCLE_HOSTNAME" --token "$STAGING_API_TOKEN" --skip-update-check --no-prompt
       - run:
           name: Fetch Orgs available to the CircleCI Token 
-          command: circleci info org --host "$HOST" --token "$STAGING_API_TOKEN"
+          command: circleci info org --host "$CIRCLE_HOSTNAME" --token "$STAGING_API_TOKEN"
       - run: 
           name: Import orbs
           command: |
@@ -59,7 +59,7 @@ commands:
                   orb_version="${orb_namespace_name}@${version}"
               
                   echo "Importing $orb_version ..."
-                  circleci admin import-orb "$orb_version" --host "$HOST" --token "$STAGING_API_TOKEN" --no-prompt
+                  circleci admin import-orb "$orb_version" --host "$CIRCLE_HOSTNAME" --token "$STAGING_API_TOKEN" --no-prompt
                 done
               done
     
