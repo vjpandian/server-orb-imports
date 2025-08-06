@@ -1,11 +1,10 @@
 #!/bin/bash
-              
-              
-              
+                        
 echo "$CIRCLE_HOSTNAME"
 declare -A ignore_map
 ignore_map["circleci/aws-s3"]="3.1.0"
 ignore_map["circleci/orb-tools"]="9.3.1"
+ignore_map[circleci/continuation"]="2.0.2 2.0.1 2.0.0"
 
 mapfile -t orbs < orbs.txt
 
