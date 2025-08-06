@@ -8,18 +8,31 @@ parameters:
     type: string
     default: "https://staging.fieldeng-sphereci.com"
 
+executors:
+  cli-docker:
+    docker:
+      - image: circleci/circleci-cli:<< pipeline.parameters.cli-version >>
+    environment:
+      CIRCLE_HOSTNAME: << pipeline.parameters.staging-hostname >>
+      GITHUB_API_HOSTNAME: "https://api.github.com"
+    resource_class: small
+
 commands:            
   staging-setup:
     parameters:
       circle-hostname:
         type: string
     steps:
+      - run:
+          name: Setup CircleCI Orb
+          command: circleci setup --host "$HOST" --token "$STAGING_API_TOKEN" --skip-update-check --no-prompt
+      - run:
+          name: Fetch Orgs available to the CircleCI Token 
+          command: circleci info org --host "$HOST" --token "$STAGING_API_TOKEN"
       - run: 
-          name: Setup CircleCI CLI and import orbs
+          name: Import orbs
           command: |
               echo "$CIRCLE_HOSTNAME"
-              circleci setup --host "$HOST" --token "$STAGING_API_TOKEN" --skip-update-check --no-prompt
-              #circleci info org --host "$HOST" --token "$STAGING_API_TOKEN"
               
               mapfile -t orbs < orbs.txt
               
@@ -28,16 +41,16 @@ commands:
                 orb_name=$(echo "$orb_namespace_name" | cut -d/ -f2)
                 repo_name="${orb_name}-orb"
               
-                github_repo="https://api.github.com/repos/${namespace^}-Public/${repo_name}/tags"
+                github_repo="$GITHUB_API_HOSTNAME/repos/${namespace^}-Public/${repo_name}/tags"
               
-                echo "🔍 Fetching tags for $orb_namespace_name from $github_repo ..."
+                echo "Fetching tags for $orb_namespace_name from $github_repo ..."
               
                 tags=$(curl -s "$github_repo" |
                   jq -r '.[].name' |
                   grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' || true)
               
                 if [[ -z "$tags" ]]; then
-                  echo "⚠️  No valid semver tags found for $orb_namespace_name. Skipping."
+                  echo " No valid semver tags found for $orb_namespace_name. Skipping."
                   continue
                 fi
               
@@ -45,18 +58,14 @@ commands:
                   version="${tag#v}"
                   orb_version="${orb_namespace_name}@${version}"
               
-                  echo "📦 Importing $orb_version ..."
-                  #circleci admin import-orb "$orb_version" --host "$HOST" --token "$STAGING_API_TOKEN" --no-prompt
+                  echo "Importing $orb_version ..."
+                  circleci admin import-orb "$orb_version" --host "$HOST" --token "$STAGING_API_TOKEN" --no-prompt
                 done
               done
     
 jobs:
   import-orbs:
-    docker:
-      - image: circleci/circleci-cli:<< pipeline.parameters.cli-version >>
-    environment:
-      CIRCLE_HOSTNAME: << pipeline.parameters.staging-hostname >>
-    resource_class: small
+    executor: cli-docker
     parameters:
       circle-hostname:
         type: string
