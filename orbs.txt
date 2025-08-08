@@ -2,5 +2,6 @@ circleci/continuation
 circleci/aws-cli
 circleci/jq
 circleci/aws-s3
+circleci/aws-ecr
 circleci/node
 circleci/path-filtering
