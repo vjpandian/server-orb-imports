@@ -6,7 +6,7 @@ parameters:
     default: "0.1.30549"
   staging-hostname:
     type: string
-    default: "https://staging.fieldeng-sphereci.com"
+    default: "https://server.rc.sphereci.com"
 
 executors:
   cli-docker:
@@ -53,4 +53,4 @@ workflows:
            circle-hostname: << pipeline.parameters.staging-hostname >>
            name: "staging-env-import"
            context: "server-rc-context"
-           filters: pipeline.git.branch == "import-all-versions"
+           filters: pipeline.git.branch == "rc-test"
