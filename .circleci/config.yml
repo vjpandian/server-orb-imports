@@ -25,10 +25,10 @@ commands:
     steps:
       - run:
           name: Setup CircleCI Orb
-          command: circleci setup --host "$CIRCLE_HOSTNAME" --token "$STAGING_API_TOKEN" --skip-update-check --no-prompt
+          command: circleci setup --host "$CIRCLE_HOSTNAME" --token "$CIRCLE_TOKEN" --skip-update-check --no-prompt
       - run:
           name: Fetch Orgs available to the CircleCI Token 
-          command: circleci info org --host "$CIRCLE_HOSTNAME" --token "$STAGING_API_TOKEN"
+          command: circleci info org --host "$CIRCLE_HOSTNAME" --token "$CIRCLE_TOKEN"
       - run: 
           name: Import orbs
           command: |
@@ -52,4 +52,5 @@ workflows:
       - import-orbs:
            circle-hostname: << pipeline.parameters.staging-hostname >>
            name: "staging-env-import"
+           context: "server-rc-context"
            filters: pipeline.git.branch == "import-all-versions"
