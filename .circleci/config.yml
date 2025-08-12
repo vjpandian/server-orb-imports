@@ -26,7 +26,7 @@ commands:
       - run:
           name: Fetch GraphQL details
           command: |
-              curl "https://$CIRCLE_HOSTNAME/graphql-unstable" -H 'Connection: keep-alive' \
+              curl "$CIRCLE_HOSTNAME/graphql-unstable" -H 'Connection: keep-alive' \
               -H "Circle-Token: $CIRCLE_TOKEN" \
               -H 'Content-Type: application/json' \
               --data-binary '{"query":"{\n\torganization(name:\"vijaypandian\",vcsType:GITHUB){\n    plan{\n      metrics(dateRange:{start:\"2025-07-01\",end:\"2025-07-31\"}) {\n        byProject{\n          nodes{\n            project{\n              name\n              organization{\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}","variables":null}' 
