@@ -38,6 +38,6 @@ for orb_namespace_name in "${orbs[@]}"; do
     orb_version="${orb_namespace_name}@${version}"
 
     echo "Importing $orb_version ..."
-    circleci admin import-orb "$orb_version" --host "$CIRCLE_HOSTNAME" --token "$STAGING_API_TOKEN" --no-prompt
+    circleci admin import-orb "$orb_version" --host "$CIRCLE_HOSTNAME" --token "$CIRCLE_TOKEN" --no-prompt
   done
 done
